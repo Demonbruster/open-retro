@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Container component="main" maxWidth="xs">
+          <Container component="main">
             {children}
           </Container>
         </Providers>

@@ -1,7 +1,12 @@
 'use client'
 
-import { Box, Button, Card, CardHeader, Grid, Paper, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material'
+import { doc, setDoc } from 'firebase/firestore'
+import { useRouter } from 'next/navigation'
+import { nanoid } from 'nanoid'
+
+import { fireStoreDB } from '@/config/firebaseConfig'
 
 interface IField {
   value: string
@@ -15,8 +20,28 @@ interface IData {
   createdAt: Date
 }
 
-function Page() {
+interface IFeedback {
+  value: string,
+  vote: number,
+}
 
+const uniqID = nanoid();
+
+const createNewRoom = async (data: IData) => await setDoc(doc(fireStoreDB, 'room', uniqID), {
+  title: data.title.value,
+  description: data.description?.value || '',
+  status: 'open',
+  isOpenJoin: true,
+  createdAt: data.createdAt,
+  feedbacks: {
+    add:[],
+    keep:[],
+    stop:[],
+  }
+})
+
+function Page() {
+  const router = useRouter();
   const [data, setData] = useState<IData>({
     title: { value: '', error: '', touched: false },
     description: { value: '', error: '', touched: false },
@@ -60,7 +85,10 @@ function Page() {
     // If there are no errors, proceed with the submission logic
     if (!data.title.error) {
       // Perform your form submission logic here
-      console.log('Form submitted:', data);
+      createNewRoom(data).then((res:unknown) => {
+        router.push("/room/"+uniqID)
+      })
+      // console.log('Form submitted:', data);
     }
   };
 
@@ -91,7 +119,7 @@ function Page() {
               helperText={data.description?.error && data.description?.touched ? data.description?.error : ''}
               error={Boolean(data.description?.error)} />
           </Grid>
-          <Grid  item xs={12}>
+          <Grid item xs={12}>
             <Button variant='contained' type="submit"> Create </Button>
           </Grid>
         </Grid>
