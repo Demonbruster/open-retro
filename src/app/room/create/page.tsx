@@ -34,7 +34,7 @@ const createNewRoom = async (data: IData) => await setDoc(doc(fireStoreDB, 'room
   isOpenJoin: true,
   createdAt: data.createdAt,
   feedbacks: {
-    add:[],
+    improve:[],
     keep:[],
     stop:[],
   }

@@ -22,7 +22,9 @@ export function useUser() {
   const [user, setUser] = useState<FirebaseUser | null | false>(false);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => setUser(user));
+    const unsubscribe = onAuthStateChanged(auth, (user) => setUser(user));
+
+    return () => unsubscribe()
   }, []);
 
   return user;

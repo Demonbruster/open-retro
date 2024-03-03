@@ -7,6 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import { Container } from "@mui/material";
+import Providers from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Container component="main">
-          {children}
-        </Container>
+        <Providers>
+          <Container component="main">
+            {children}
+          </Container>
+        </Providers>
       </body>
     </html>
   );

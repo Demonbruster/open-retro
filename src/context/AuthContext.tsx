@@ -4,6 +4,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/config/firebaseConfig";
 import { useRouter } from "next/navigation";
 import useGlobalCtx from "./GlobalContext";
+import { useUser } from "@/lib/auth";
 
 interface IAuthCtx {
   isAdmin: boolean
@@ -21,14 +22,16 @@ const authCtx = createContext(initialData);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const { user } = useGlobalCtx();
+  const user = useUser();
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
   console.log("user", user)
 
-  // if (!user) {
-  //   router.push('/auth')
-  // }
+  if (user === false)
+    return <>Loading...</>
+
+  if (!user)
+    router.push('/auth')
 
   // if (!(user || isAdmin)) {
   //   signInWithPopup(auth, provider)
