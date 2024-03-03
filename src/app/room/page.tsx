@@ -1,31 +1,26 @@
 'use client'
 
-import { fireStoreDB } from '@/config/firebaseConfig'
 import useGlobalCtx from '@/context/GlobalContext'
-import { Query, collection, getDocs, getDocsFromCache, getDocsFromServer, query } from 'firebase/firestore'
-import React, { useEffect } from 'react'
+import { Alert, Typography } from '@mui/material'
+import React from 'react'
 
-type Props = {}
-
-function Rooms({ }: Props) {
-  const { rooms } = useGlobalCtx();
-
-  console.log('rooms: ', rooms)
-
-  useEffect(() => {
-    // getDocsFromServer(query(collection(fireStoreDB, 'room'))).then((res) => {
-    //   const dd = res.docs.map(val => ({
-    //     id: val.id,
-    //     data: val.data()
-    //    }))
-    //    console.log('docs: => ', dd)
-    //    res.docs
-    //  })
-  }, [])
+function Rooms() {
+const { rooms } = useGlobalCtx();
 
   return (
-    <div>Rooms</div>
+    <div>List of Rooms:
+      {rooms.map((room, index) => <Item key={index} title={room.title} description={room.description} />)}
+    </div>
   )
 }
+
+const Item = ({ title, description }: { title: string, description?: string }) => <Alert sx={{ mb: 1 }}>
+  <Typography variant='h5'>
+    {title}
+  </Typography>
+  {Boolean(description) && <Typography variant='caption'>
+    {description}
+  </Typography>}
+</Alert>
 
 export default Rooms
