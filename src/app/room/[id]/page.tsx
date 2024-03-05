@@ -56,11 +56,9 @@ function Page({ params }: Props) {
   }, [feedbackType, room])
 
   useEffect(() => {
-    console.log({ id })
     if (!id || id === '') return
 
     const unsubscribe = onSnapshot(qry, (snap) => {
-      console.log('snap-data:', snap.docChanges().map(d => d.doc.data()))
       const dd = snap.docChanges().map(d => d.doc.data())
       if (dd.length < 1) return
       const dd0 = dd[0] as IRoom
@@ -81,7 +79,6 @@ function Page({ params }: Props) {
 
   const addFeedbackItem = (val: string) => {
     if (!val || val === '' || !room) return
-    console.log('val: ', val)
 
     const feedbackCount = user ? room.feedbacks.filter(fb => fb.type === feedbackType && fb.createdBy === user.email) : []
 
