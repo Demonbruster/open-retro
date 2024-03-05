@@ -41,7 +41,7 @@ function Page({ params }: Props) {
     if (!room) return []
 
     if (!mutableFeedbackTypes.includes(feedbackType)) {
-      if(feedbackType === 'complete'){
+      if (feedbackType === 'complete') {
         //accenting by height votes
         const accentingFeedback = room.feedbacks.sort((fb, fb2) => fb2.votes - fb.votes)
         console.log('accentingFeedback', accentingFeedback)
@@ -131,12 +131,11 @@ function Page({ params }: Props) {
       page: {params.id} <br />
       isAdmin: {JSON.stringify(isAdmin)} <br />
       status: {feedbackType} <br />
-      room: {JSON.stringify(room)} <br />
       email: {user && user.email}
 
       {/** Action control */}
       <Grid container spacing={2} sx={{ width: '80vw' }}>
-        <Grid item xs={12}>
+        {isAdmin && <Grid item xs={12}>
           <ButtonGroup aria-label="Basic button group">
             {feedbackTypes.map((va, index) =>
               <Button
@@ -151,13 +150,13 @@ function Page({ params }: Props) {
                 {va.toLocaleUpperCase()}
               </Button>)}
           </ButtonGroup>
-        </Grid>
+        </Grid>}
 
         <Grid item xs={12}>
           {/** Feedback items */}
           {
             feedbacks.map((fb, index) => (
-              <Alert icon={<></>} key={index} sx={{ mb: 1 }} severity={fb.type === 'improve' ? 'info' : fb.type === 'keep' ? 'success' : 'error' }>
+              <Alert icon={<></>} key={index} sx={{ mb: 1 }} severity={fb.type === 'improve' ? 'info' : fb.type === 'keep' ? 'success' : 'error'}>
                 {/* <Badge badgeContent={2}> */}
                 <Typography variant='h5'>
                   {fb.value}
