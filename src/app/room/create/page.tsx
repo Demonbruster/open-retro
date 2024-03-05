@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { nanoid } from 'nanoid'
 
 import { fireStoreDB } from '@/config/firebaseConfig'
+import useAuth from '@/context/AuthContext'
 
 interface IField {
   value: string
@@ -38,6 +39,7 @@ const createNewRoom = async (data: IData) => await setDoc(doc(fireStoreDB, 'room
 
 function Page() {
   const router = useRouter();
+  const { isAdmin } = useAuth();
   const [data, setData] = useState<IData>({
     title: { value: '', error: '', touched: false },
     description: { value: '', error: '', touched: false },
@@ -69,6 +71,11 @@ function Page() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if(!isAdmin){
+      alert('I told you, You are not an ADMIN 🤬')
+      return;
+    }
+
     // Your validation logic goes here
     // For simplicity, let's assume a simple required validation for both title and description
     if (!data.title.value.trim()) {
@@ -81,10 +88,9 @@ function Page() {
     // If there are no errors, proceed with the submission logic
     if (!data.title.error) {
       // Perform your form submission logic here
-      createNewRoom(data).then((res:unknown) => {
-        router.push("/room/"+uniqID)
+      createNewRoom(data).then((res: unknown) => {
+        router.push("/room/" + uniqID)
       })
-      // console.log('Form submitted:', data);
     }
   };
 
@@ -93,6 +99,11 @@ function Page() {
       <Typography variant="h6" gutterBottom>
         Create new retro
       </Typography>
+      { !isAdmin &&
+        <Typography variant="h4" color='red' gutterBottom>
+          Admin only able to create the meeting
+        </Typography>
+      }
       <Box component="form" sx={{ p: 3 }} onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} >

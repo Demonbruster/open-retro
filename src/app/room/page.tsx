@@ -2,7 +2,7 @@
 
 import useGlobalCtx from '@/context/GlobalContext'
 import { IRoom } from '@/lib/types'
-import { Alert, Typography } from '@mui/material'
+import { Alert, Box, Button, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -15,9 +15,13 @@ function Rooms() {
   }
 
   return (
-    <div>List of Rooms:
+    <Box sx={{p: 2}}>
+      <Button sx={{my: 1}} variant='contained' onClick={()=>{router.push('/room/create')}}>
+        Create new
+      </Button> <br/>
+      List of Rooms:
       {rooms.map((room, index) => <Item key={index} room={room} onClick={handleRoute} />)}
-    </div>
+    </Box>
   )
 }
 

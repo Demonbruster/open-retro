@@ -44,7 +44,6 @@ function Page({ params }: Props) {
       if (feedbackType === 'complete') {
         //accenting by height votes
         const accentingFeedback = room.feedbacks.sort((fb, fb2) => fb2.votes - fb.votes)
-        console.log('accentingFeedback', accentingFeedback)
         return accentingFeedback;
       }
 

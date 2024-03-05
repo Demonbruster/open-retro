@@ -27,7 +27,6 @@ const singIn = (email: string, password: string) => signInWithEmailAndPassword(a
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log("User: ", user);
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -63,9 +62,8 @@ export default function SignIn() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    console.log(token + ", " + user.email);
     // IdP data available using getAdditionalUserInfo(result)
-    // router.push('/room')
+    router.push('/room')
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -85,11 +83,6 @@ export default function SignIn() {
     const password = data.get('password') as string
 
     if (email == '' || password == '') return;
-
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
 
     singIn(email, password).then(() => {
       router.push('/room')

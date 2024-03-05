@@ -30,8 +30,6 @@ const ToolbarHandle = () => {
   const { user } = useAuth()
   const loggedUser = useMemo(() => Boolean(user), [user])
 
-  console.log('user')
-
   const handleAuth = () => {
     if (loggedUser)
       signOut()
