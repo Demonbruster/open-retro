@@ -155,16 +155,6 @@ export default function SignIn() {
                   Sign In With Google
                 </Button>
               </Grid>
-              <Grid item xs>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={()=> {signOut()}}
-                >
-                  Log out
-                </Button>
-              </Grid>
             </Grid>
           </Box>
         </Box>
