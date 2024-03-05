@@ -19,6 +19,7 @@ import { auth } from '@/config/firebaseConfig';
 import { signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 import useGlobalCtx from '@/context/GlobalContext';
+import { signOut } from '@/lib/auth';
 
 const provider = new GoogleAuthProvider();
 
@@ -152,6 +153,16 @@ export default function SignIn() {
                   onClick={signInWithGoogleHandler}
                 >
                   Sign In With Google
+                </Button>
+              </Grid>
+              <Grid item xs>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  onClick={()=> {signOut()}}
+                >
+                  Log out
                 </Button>
               </Grid>
             </Grid>

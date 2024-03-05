@@ -14,7 +14,7 @@ export async function signInWithGoogle() {
   signInWithRedirect(auth, provider)
 }
 
-export async function signOut() {
+export function signOut() {
   return firebaseSignOut(auth);
 }
 

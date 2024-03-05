@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo } from "react";
 import { GoogleAuthProvider, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/lib/auth";
-import { ADMIN_EMAIL } from "@/constants";
+import { NEXT_PUBLIC_ADMIN_EMAIL } from "@/constants";
 
 interface IAuthCtx {
   isAdmin: boolean
@@ -21,8 +21,7 @@ const authCtx = createContext(initialData);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const user = useUser();
-  let isAdmin = useMemo(() => Boolean(user && user?.email === ADMIN_EMAIL), [user]);
-
+  const isAdmin = useMemo(() => Boolean(user && user?.email === NEXT_PUBLIC_ADMIN_EMAIL), [user]);
 
   if (user === false)
   return <>Loading...</>
