@@ -33,11 +33,7 @@ const createNewRoom = async (data: IData) => await setDoc(doc(fireStoreDB, 'room
   status: 'open',
   isOpenJoin: true,
   createdAt: data.createdAt,
-  feedbacks: {
-    improve:[],
-    keep:[],
-    stop:[],
-  }
+  feedbacks: []
 })
 
 function Page() {

@@ -53,7 +53,6 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const router = useRouter();
-  const { setUser } = useGlobalCtx();
 
   const signInWithGoogleHandler = () => signInWithPopup(auth, provider)
   .then((result) => {
@@ -63,7 +62,6 @@ export default function SignIn() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    setUser(user)
     console.log(token + ", " + user.email);
     // IdP data available using getAdditionalUserInfo(result)
     // router.push('/room')
