@@ -33,6 +33,10 @@ const Item = ({ room, onClick }: { room: IRoom, onClick: (id: string) => void })
   {Boolean(room.description) && <Typography variant='caption'>
     {room.description}
   </Typography>}
+  <br/>
+  <Typography variant='caption'>
+    {room.createdAt.toDate().toDateString()}
+  </Typography>
 </Alert>
 
 export default Rooms
